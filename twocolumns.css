@@ -1,0 +1,19 @@
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+#left {
+    left: 0;
+    min-width: 600px;
+}
+
+#right {
+    /* left: 600px; */
+}

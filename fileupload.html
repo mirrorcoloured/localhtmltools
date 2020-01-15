@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="fileupload.css">
+    </head>
+    <body>
+        <h3>File upload</h3>
+        <div class="fileuploaddiv">
+            <input type="file" id="files" name="files[]" multiple />
+            <output id="fileuploadlist"></output>
+        </div>
+
+        <h3>File upload (drag and drop)</h3>
+        <div class="fileuploaddiv">
+            <div id="drop_zone">Drop files here</div>
+            <output id="fileuploadlistdrop"></output>
+        </div>
+
+        <div id="output">
+
+        </div>
+
+        <script type="module" src="fileupload.js"></script>
+    </body>
+</html>

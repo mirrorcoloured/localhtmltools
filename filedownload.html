@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <input type="text" id="content" placeholder="Enter some text..." value="Some example text"></input>
+        <button id="down">Download file</button>
+        <script>
+            document.getElementById("down").addEventListener("click", download_file)
+
+            function download_file() {
+                const export_data = document.getElementById("content").value;
+                const blob = new Blob([export_data], {type: 'plain/text'});
+                let a = document.createElement('a');
+                a.download = 'export.txt';
+                a.href = window.URL.createObjectURL(blob);
+                a.click();
+            }
+        </script>
+    </body>
+</html>
