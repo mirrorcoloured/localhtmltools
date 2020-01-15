@@ -26,6 +26,7 @@ function processFiles(files) {
             if (loaded == files.length) {
                 fdata = contents;
                 console.log('got fdata', fdata);
+                document.getElementById("output").innerHTML = JSON.stringify(fdata, null, 4);
             }
         };
         readers[i].readAsText(f);

@@ -1,8 +1,16 @@
 <html>
     <head>
         <link type="text/css" rel="stylesheet" href="twocolumns.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
     <body>
+        <div id="navbar"></div>
+        <script>
+            $(function(){
+                $("#navbar").load("/html/navbar.html");
+            });
+        </script>
+
         <div class="row">
             <div id="left" class="column">
                 left column content

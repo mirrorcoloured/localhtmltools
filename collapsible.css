@@ -14,7 +14,7 @@
     font-size: 15px;
 }
 
-.active, .collapsible_button:hover {
+.collapsed, .collapsible_button:hover {
     background-color: #555;
 }
 
@@ -26,7 +26,7 @@
     margin-left: 5px;
 }
 
-.active:after {
+.collapsed:after {
     content: "\2212";
 }
 

@@ -1,12 +1,21 @@
 <html>
-    <head></head>
+    <head>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
     <body>
+        <div id="navbar"></div>
+        <script>
+            $(function(){
+                $("#navbar").load("/html/navbar.html");
+            });
+        </script>
+
+        <h3 id="banner">I don't know your name</h3>
         <span>What's your name?</span>
         <input type="text" id="inp">
         <button id="save">Save name</button>
         <button id="clear">Clear name</button>
         <span id="message"></span>
-        <h3 id="banner"></h3>
         <script type="module" src="localstorage.js"></script>
     </body>
 </html>

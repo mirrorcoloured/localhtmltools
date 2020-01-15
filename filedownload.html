@@ -1,5 +1,15 @@
 <html>
+    <head>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
     <body>
+        <div id="navbar"></div>
+        <script>
+            $(function(){
+                $("#navbar").load("/html/navbar.html");
+            });
+        </script>
+
         <input type="text" id="content" placeholder="Enter some text..." value="Some example text"></input>
         <button id="down">Download file</button>
         <script>

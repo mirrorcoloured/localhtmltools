@@ -17,4 +17,5 @@ function clearStorage() {
 const name = localStorage.getItem("name");
 if (name && name.length > 0) {
     document.getElementById("banner").innerHTML = `Hello, ${name}!`;
+    document.getElementById("inp").value = name;
 }

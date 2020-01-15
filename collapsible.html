@@ -1,8 +1,16 @@
 <html>
     <head>
         <link type="text/css" rel="stylesheet" href="collapsible.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
     <body>
+        <div id="navbar"></div>
+        <script>
+            $(function(){
+                $("#navbar").load("/html/navbar.html");
+            });
+        </script>
+
         <div class="collapsible">
             <button class="collapsible_button">Collapsible header</button>
             <div class="content">
@@ -12,5 +20,4 @@
             </div>
         </div>
         <script type="module" charset="utf-8" src="collapsible.js"></script>
-    </body>
 </html>

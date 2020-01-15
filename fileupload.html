@@ -1,8 +1,16 @@
 <html>
     <head>
         <link type="text/css" rel="stylesheet" href="fileupload.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
     <body>
+        <div id="navbar"></div>
+        <script>
+            $(function(){
+                $("#navbar").load("/html/navbar.html");
+            });
+        </script>
+
         <h3>File upload</h3>
         <div class="fileuploaddiv">
             <input type="file" id="files" name="files[]" multiple />
