@@ -12,14 +12,20 @@
 
         <input type="text" id="content" placeholder="Enter some text..." value="Some example text"></input>
         <button id="down">Download file</button>
-        <script>
-            document.getElementById("down").addEventListener("click", download_file)
 
-            function download_file() {
-                const export_data = document.getElementById("content").value;
+        <script>
+            document.getElementById("down").addEventListener("click", download_this_file);
+
+            function download_this_file() {
+                download_file(document.getElementById("content").value, 'export.txt');
+            }
+
+            function download_file(export_data, filename) {
+                // const export_data = document.getElementById("content").value;
                 const blob = new Blob([export_data], {type: 'plain/text'});
                 let a = document.createElement('a');
-                a.download = 'export.txt';
+                // a.download = 'export.txt';
+                a.download = filename;
                 a.href = window.URL.createObjectURL(blob);
                 a.click();
             }
