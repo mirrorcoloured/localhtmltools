@@ -1,11 +1,11 @@
 // https://www.html5rocks.com/en/tutorials/file/dndfiles/
 // https://stackoverflow.com/a/29176118/8305404
 
+
 // Parse files to text
 
-let fdata = "";
-
-function processFiles(files) {
+function processFiles(files, callback) {
+    let fdata = "";
     let metadata = [];
     let readers = [];
     let contents = [];
@@ -25,32 +25,33 @@ function processFiles(files) {
             contents.push(text);
             if (loaded == files.length) {
                 fdata = contents;
-                console.log('got fdata', fdata);
-                document.getElementById("output").innerHTML = JSON.stringify(fdata, null, 4);
+                callback(metadata, fdata);
             }
         };
         readers[i].readAsText(f);
     }
-    return metadata;
 }
 
 
 // Input button file selection
 
 function handleFileSelect(evt) {
-    let metadata = processFiles(evt.target.files);
-    document.getElementById('fileuploadlist').innerHTML = '<ul>' + decodeURI(metadata.join('')) + '</ul>';
+    processFiles(evt.target.files, function(metadata, filedata) {
+		document.getElementById('fileuploadlist').innerHTML = '<ul>' + decodeURI(metadata.join('')) + '</ul>';
+		console.log(filedata);
+	});
 }
 document.getElementById('files').addEventListener('change', e => handleFileSelect(e), false);
 
+
+
 // Drag and drop zone file selection
 
-function handleFileSelectDragDrop(evt) {
+function handleFileSelectDragDrop(evt, callback) {
     evt.stopPropagation();
     evt.preventDefault();
 
-    let metadata = processFiles(evt.dataTransfer.files);
-    document.getElementById('fileuploadlistdrop').innerHTML = '<ul>' + decodeURI(metadata.join('')) + '</ul>';
+    processFiles(evt.dataTransfer.files, callback);
 }
 function handleDragOver(evt) {
     evt.stopPropagation();
@@ -58,6 +59,16 @@ function handleDragOver(evt) {
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
 
-var dropZone = document.getElementById('drop_zone');
-dropZone.addEventListener('dragover', handleDragOver, false);
-dropZone.addEventListener('drop', e => handleFileSelectDragDrop(e), false);
+export function makeDragUploadable(element, callback) {
+    element.addEventListener('dragover', handleDragOver, false);
+    element.addEventListener('drop', event => handleFileSelectDragDrop(event, callback), false);
+}
+
+// Example call:
+makeDragUploadable(
+	document.getElementById('drop_zone'),
+	function (metadata, filedata) {
+		document.getElementById('fileuploadlistdrop').innerHTML = '<ul>' + decodeURI(metadata.join('')) + '</ul>';
+		console.log(filedata);
+	}
+);
