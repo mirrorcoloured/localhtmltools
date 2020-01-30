@@ -14,7 +14,16 @@
     font-size: 15px;
 }
 
-.collapsed, .collapsible_button:hover {
+.collapsible_content {
+    padding: 0;
+    margin: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+
+.active, .collapsible_button:hover {
     background-color: #555;
 }
 
@@ -26,20 +35,11 @@
     margin-left: 5px;
 }
 
-.collapsed:after {
+.active:after {
     content: "\2212";
 }
 
-.content {
-    padding: 0;
-    margin: 10px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    background-color: #f1f1f1;
-}
-
-.collapsed {
+.expanded {
     padding: 10px;
     margin: 0px;
 }
