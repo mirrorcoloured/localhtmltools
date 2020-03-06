@@ -35,13 +35,15 @@ function processFiles(files, callback) {
 
 // Input button file selection
 
-function handleFileSelect(evt) {
-    processFiles(evt.target.files, function(metadata, filedata) {
-		document.getElementById('fileuploadlist').innerHTML = '<ul>' + decodeURI(metadata.join('')) + '</ul>';
-		console.log(filedata);
-	});
+function handleFileSelect(evt, callback) {
+    processFiles(evt.target.files, callback);
 }
-document.getElementById('files').addEventListener('change', e => handleFileSelect(e), false);
+
+// Add event listener to input button
+document.getElementById('files').addEventListener('change', e => handleFileSelect(e, function(metadata, filedata) {
+    document.getElementById('fileuploadlist').innerHTML = '<ul>' + decodeURI(metadata.join('')) + '</ul>';
+    console.log(filedata);
+}), false);
 
 
 
