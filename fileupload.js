@@ -1,76 +1,74 @@
+// Sky Chrastina
+// 2020.07.14
+
+// Based on:
 // https://www.html5rocks.com/en/tutorials/file/dndfiles/
 // https://stackoverflow.com/a/29176118/8305404
 
 
-// Parse files to text
-
+// Parse files to arrays of metadata and filedata
 function processFiles(files, callback) {
-    let fdata = "";
-    let metadata = [];
     let readers = [];
-    let contents = [];
+    let metadata = [];
+    let filedata = [];
     let loaded = 0;
     for (let f of files) {
         readers.push(new FileReader());
     }
     for (let i = 0; i < files.length; i++) {
         const f = files[i];
-        metadata.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                  f.size, ' bytes, last modified: ',
-                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                  '</li>');
-        readers[i].onload = function() {
+        metadata.push(f);
+        readers[i].onload = function () {
             loaded++;
             var text = readers[i].result;
-            contents.push(text);
+            filedata.push(text);
+            // Wait until all files have been loaded before calling back
             if (loaded == files.length) {
-                fdata = contents;
-                callback(metadata, fdata);
+                callback(metadata, filedata);
             }
         };
         readers[i].readAsText(f);
     }
 }
 
-
-// Input button file selection
-
-function handleFileSelect(evt, callback) {
-    processFiles(evt.target.files, callback);
-}
-
-// Add event listener to input button
-document.getElementById('files').addEventListener('change', e => handleFileSelect(e, function(metadata, filedata) {
-    document.getElementById('fileuploadlist').innerHTML = '<ul>' + decodeURI(metadata.join('')) + '</ul>';
-    console.log(filedata);
-}), false);
-
-
-
-// Drag and drop zone file selection
-
-function handleFileSelectDragDrop(evt, callback) {
-    evt.stopPropagation();
-    evt.preventDefault();
-
-    processFiles(evt.dataTransfer.files, callback);
-}
-function handleDragOver(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-}
-
+// Allow files to be drag-and-dropped onto this element
 export function makeDragUploadable(element, callback) {
-    element.addEventListener('dragover', handleDragOver, false);
-    element.addEventListener('drop', event => handleFileSelectDragDrop(event, callback), false);
+    element.addEventListener('dragover', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
+    }, false);
+
+    element.addEventListener('drop', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        processFiles(event.dataTransfer.files, callback);
+    }, false);
+}
+
+// Allow clicking this element to open a file upload dialog
+export function makeClickUploadable(element, callback) {
+    let input_element = document.createElement("input");
+    input_element.setAttribute("type", "file");
+
+    input_element.addEventListener("change", event => processFiles(event.target.files, callback));
+    element.addEventListener("click", () => input_element.click());
 }
 
 // Example call:
-makeDragUploadable(
-	document.getElementById('drop_zone'),
-	function (metadata, filedata) {
-		document.getElementById('fileuploadlistdrop').innerHTML = '<ul>' + decodeURI(metadata.join('')) + '</ul>';
-		console.log(filedata);
-	}
-);
+
+// makeClickUploadable(
+//     document.getElementById('upload_file'),
+//     function (metadata, filedata) {
+// 		console.log('metadata', metadata)
+// 		console.log('filedata', filedata);
+//     }
+// )
+
+// makeDragUploadable(
+// 	document.getElementById('drop_file'),
+// 	function (metadata, filedata) {
+// 		console.log('metadata', metadata)
+// 		console.log('filedata', filedata);
+// 	}
+// );

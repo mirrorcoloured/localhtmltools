@@ -3,7 +3,7 @@
     border: 1px solid #ccc;
 }
 
-#drop_zone {
+#drop_file {
     border: 2px dashed #bbb;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
