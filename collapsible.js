@@ -13,7 +13,7 @@ function getButtonAndContent(collapsible) {
     return [button, content];
 }
 
-function addCollapsibleEvents() {
+export function addCollapsibleEvents() {
     for (let collapsible of document.getElementsByClassName("collapsible")) {
         let [button, content] = getButtonAndContent(collapsible);
 
