@@ -2,6 +2,7 @@
  * TODO
  * tooltips
  * more flexible positioning/css
+ * click outside load menu to close it
  */
 
 class StorageInterface {
@@ -86,7 +87,8 @@ export class LocalStorageHandler extends StorageInterface {
                 top: 20%;
                 padding: 5;
                 margin: 0;
-                box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+                background-color: white;
+                box-shadow: 0 0 5px 10000px rgba(0, 0, 0, 0.3);
                 `,
             row: `
                 border: 1px solid black;
