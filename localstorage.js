@@ -1,21 +1,17 @@
-document.getElementById("save").addEventListener("click", saveStorage);
-document.getElementById("clear").addEventListener("click", clearStorage);
+import {LocalStorageHandler} from "./LocalStorageHandler.js";
 
-function saveStorage() {
-    const name = document.getElementById("inp").value;
-    if (name.length > 0) {
-        localStorage.setItem("name", name);
-        document.getElementById("message").innerHTML = "Saved name";
-    }
+const e_input = document.getElementById("inp");
+
+function localstorageGetPageData() {
+    // Write page data to storage
+    return {
+        input_name: e_input.value
+    };
 }
 
-function clearStorage() {
-    localStorage.removeItem("name");
-    document.getElementById("message").innerHTML = "Cleared name";
+function localstorageSetPageData(page_data) {
+    // Load page data from storage
+    e_input.value = page_data.input_name;
 }
 
-const name = localStorage.getItem("name");
-if (name && name.length > 0) {
-    document.getElementById("banner").innerHTML = `Hello, ${name}!`;
-    document.getElementById("inp").value = name;
-}
+let LSH = new LocalStorageHandler(localstorageGetPageData, localstorageSetPageData);
