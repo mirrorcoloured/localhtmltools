@@ -126,12 +126,11 @@ export class LocalStorageHandler extends StorageInterface {
         this.top_row = document.createElement("tr");
         this.top_row.style = this.styles.row;
         let c1 = document.createElement("td");
-        c1.innerHTML = "ALL";
         let c2 = document.createElement("td");
-        c2.innerHTML = "↓";
+        c2.innerHTML = "⇩";
         c2.addEventListener("click", this.export_all_keys.bind(this));
         let c3 = document.createElement("td");
-        c3.innerHTML = "↑";
+        c3.innerHTML = "⇧";
         makeClickUploadable(c3, this.import.bind(this));
         this.top_row.appendChild(c1);
         this.top_row.appendChild(c2);
@@ -169,7 +168,7 @@ export class LocalStorageHandler extends StorageInterface {
         export_item.addEventListener("click", this.export_key.bind(this, safe_key));
         
         let remove_item = document.createElement("td");
-        remove_item.innerHTML = "✗";
+        remove_item.innerHTML = "🗙";
         remove_item.addEventListener("click", this.delete.bind(this, safe_key));
     
         list_row.appendChild(list_item);
