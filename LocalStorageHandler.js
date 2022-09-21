@@ -138,10 +138,15 @@ export class LocalStorageHandler extends StorageInterface {
         this.top_row.appendChild(c3);
         this.table.appendChild(this.top_row);
 
-        for (let key in localStorage) {
-            if (key.startsWith(this.data_prefix)) {
-                this.add(key);
+        let storage_keys = [];
+        for (let safe_key in localStorage) {
+            if (safe_key.startsWith(this.data_prefix)) {
+                storage_keys.push(safe_key)
             }
+        }
+        storage_keys.sort()
+        for (let safe_key of storage_keys) {
+            this.add(safe_key);
         }
 
         this.top_div.appendChild(this.save_div);
