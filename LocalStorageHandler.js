@@ -65,19 +65,18 @@ export class LocalStorageHandler extends StorageInterface {
         this.DOM_UPDATE_MS = 100;
 
         this.styles = {
-            save_div: `
+            top_div: `
                 position: fixed;
+                top: 5px;
+                right: 5px;
+                `,
+            save_div: `
                 cursor: pointer;
                 display: block;
-                top: 5;
-                right: 5;
                 `,
             load_div: `
-                position: fixed;
                 cursor: pointer;
                 display: block;
-                top: 30;
-                right: 5;
                 `,
             table: `
                 border: 1px solid black;
@@ -85,14 +84,14 @@ export class LocalStorageHandler extends StorageInterface {
                 position: fixed;
                 left: 50%;
                 top: 20%;
-                padding: 5;
+                padding: 5px;
                 margin: 0;
                 background-color: white;
                 box-shadow: 0 0 5px 10000px rgba(0, 0, 0, 0.3);
                 `,
             row: `
                 border: 1px solid black;
-                padding: 3;
+                padding: 3px;
                 cursor: pointer;
                 `,
         }
@@ -110,6 +109,7 @@ export class LocalStorageHandler extends StorageInterface {
 
     setup(parent_element) {
         this.top_div = document.createElement("div");
+        this.top_div.style = this.styles.top_div;
         
         this.save_div = document.createElement("div");
         this.save_div.innerHTML = "💾"
