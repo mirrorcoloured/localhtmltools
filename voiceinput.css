@@ -1,0 +1,19 @@
+#results {
+  border: 1px solid #ddd;
+  margin: 3px;
+}
+#interim_span {
+  font-size: 14px;
+  font-weight: bold;
+  color: gray;
+  display: inline-block;
+  vertical-align: middle;
+}
+#start_img {
+  display: inline-block;
+  vertical-align: middle;
+}
+#inp_command {
+  box-sizing: border-box;
+  width: 100%;
+}
