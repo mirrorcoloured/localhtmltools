@@ -1,35 +1,48 @@
+const CLS_PARENT = "collapsible";
+const CLS_COLLAPSED = "collapsed";
+
 function updateCollapsible(collapsible) {
     let [button, content] = getButtonAndContent(collapsible);
-    if (content.classList.contains("expanded")) {
-        content.style.maxHeight = content.scrollHeight + "px";
-    } else {
+    if (collapsible.classList.contains(CLS_COLLAPSED)) {
         content.style.maxHeight = 0;
+    } else {
+        content.style.maxHeight = content.scrollHeight + "px";
     }
 }
 
 function getButtonAndContent(collapsible) {
-    const button = collapsible.getElementsByClassName("collapsible_button")[0];
-    const content = collapsible.getElementsByClassName("collapsible_content")[0];
+    const [button, content] = collapsible.children;
     return [button, content];
 }
 
-export function addCollapsibleEvents() {
-    for (let collapsible of document.getElementsByClassName("collapsible")) {
+export function addCollapsibleEvents(rememberState=true) {
+    for (let collapsible of document.getElementsByClassName(CLS_PARENT)) {
         let [button, content] = getButtonAndContent(collapsible);
+        
+        const storageId = `collapsible-${collapsible.id}-${button.innerHTML}`;
 
         button.addEventListener("click", function() {
-            button.classList.toggle("active");
-            content.classList.toggle("expanded");
+            collapsible.classList.toggle(CLS_COLLAPSED);
+            
+            if (rememberState) {
+                const isCollapsed = collapsible.classList.contains(CLS_COLLAPSED);
+                window.localStorage.setItem(storageId, isCollapsed);
+            }
         });
-
+        
         const observer = new MutationObserver(function() {
             updateCollapsible(collapsible);
         });
         observer.observe(collapsible, { attributes: true, childList: true, subtree: true });
-
-        // Start expanded
-        button.classList.toggle("active");
-        content.classList.toggle("expanded");
+        
+        if (rememberState) {
+            const shouldBeCollapsed = JSON.parse(window.localStorage.getItem(storageId)) || false;
+            if (shouldBeCollapsed) {
+                collapsible.classList.add(CLS_COLLAPSED);
+            } else {
+                collapsible.classList.remove(CLS_COLLAPSED);
+            };
+        }
         updateCollapsible(collapsible)
     }
 }

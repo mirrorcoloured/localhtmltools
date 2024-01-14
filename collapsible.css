@@ -1,10 +1,8 @@
 .collapsible {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
-.collapsible_button {
-    background-color: #777;
-    color: white;
+.collapsible > button {
     cursor: pointer;
     padding: 10px;
     width: 100%;
@@ -14,32 +12,32 @@
     font-size: 15px;
 }
 
-.collapsible_content {
-    padding: 0;
-    margin: 10px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    background-color: #f1f1f1;
+.collapsible > button:hover {
+    
 }
 
-.active, .collapsible_button:hover {
-    background-color: #555;
-}
-
-.collapsible_button:after {
-    content: '\002B';
-    color: white;
+.collapsible > button::after {
     font-weight: bold;
     float: right;
     margin-left: 5px;
 }
-
-.active:after {
-    content: "\2212";
+.collapsible.collapsed > button::after {
+    content: '\002B'; /* + */
+}
+.collapsible:not(.collapsed) > button::after {
+    content: "\2212"; /* - */
 }
 
-.expanded {
-    padding: 10px;
+.collapsible.collapsed > div {
+    
+}
+
+.collapsible.collapsed > div {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+.collapsible:not(.collapsed) > div {
     margin: 0px;
 }
